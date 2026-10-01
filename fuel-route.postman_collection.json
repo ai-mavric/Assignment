@@ -1,0 +1,48 @@
+{
+  "info": {
+    "name": "Fuel Route Planner",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "base_url", "value": "http://127.0.0.1:8000" }],
+  "item": [
+    {
+      "name": "Plan route (POST) - New York to Los Angeles",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"start\": \"New York, NY\",\n  \"finish\": \"Los Angeles, CA\"\n}" },
+        "url": "{{base_url}}/api/route/"
+      }
+    },
+    {
+      "name": "Plan route (GET) - Chicago to Houston",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/route/?start=Chicago, IL&finish=Houston, TX",
+          "host": ["{{base_url}}"],
+          "path": ["api", "route", ""],
+          "query": [{ "key": "start", "value": "Chicago, IL" }, { "key": "finish", "value": "Houston, TX" }]
+        }
+      }
+    },
+    {
+      "name": "Plan route - address and coordinates",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"start\": \"1600 Pennsylvania Ave NW, Washington, DC\",\n  \"finish\": \"47.6062,-122.3321\"\n}" },
+        "url": "{{base_url}}/api/route/"
+      }
+    },
+    {
+      "name": "Error - location outside USA",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"start\": \"Paris, France\",\n  \"finish\": \"Dallas, TX\"\n}" },
+        "url": "{{base_url}}/api/route/"
+      }
+    }
+  ]
+}
